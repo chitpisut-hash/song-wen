@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ส่งเวร</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ส่งเวร">
+<meta name="theme-color" content="#FBDCCB">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #FBDCCB; color: #8F4A2B; font: 500 18px system-ui, sans-serif; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<!-- หน้านี้มีไว้ให้ระบบรู้จักไอคอนและชื่อแอปเท่านั้น ข้อมูลทั้งหมดอยู่หลัง PIN บน Apps Script -->
+<a id="open" href="https://script.google.com/macros/s/AKfycbzuHKR-oSCWQGtn4-OaBgcEpDUdqiKsDTgOrPJYsGS54mOCpaIhblcaj0h1WjP-wj8Q/exec">เปิดส่งเวร</a>
+<script>
+  // เปิดจากหน้าจอหลักเท่านั้นที่พาไปหน้าแอปทันที ในเบราว์เซอร์ต้องอยู่หน้านี้ก่อน ไม่งั้นกดเพิ่มไอคอนไม่ทัน
+  if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+    location.replace(document.getElementById('open').href);
+  }
+</script>
+</body>
+</html>
