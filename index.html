@@ -11,17 +11,23 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <style>
-  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #FBDCCB; color: #8F4A2B; font: 500 18px system-ui, sans-serif; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #FBDCCB; color: #8F4A2B; font: 500 18px system-ui, sans-serif; text-align: center; }
+  p { margin: 24px; }
   a { color: inherit; }
 </style>
 </head>
 <body>
 <!-- หน้านี้มีไว้ให้ระบบรู้จักไอคอนและชื่อแอปเท่านั้น ข้อมูลทั้งหมดอยู่หลัง PIN บน Apps Script -->
-<a id="open" href="https://script.google.com/macros/s/AKfycbzuHKR-oSCWQGtn4-OaBgcEpDUdqiKsDTgOrPJYsGS54mOCpaIhblcaj0h1WjP-wj8Q/exec">เปิดส่งเวร</a>
+<p id="install" hidden>เปิดเมนูของเบราว์เซอร์ แล้วเลือกเพิ่มไปยังหน้าจอหลัก</p>
+<noscript><a href="https://script.google.com/macros/s/AKfycbzuHKR-oSCWQGtn4-OaBgcEpDUdqiKsDTgOrPJYsGS54mOCpaIhblcaj0h1WjP-wj8Q/exec">เข้าใช้งาน</a></noscript>
 <script>
-  // เปิดจากหน้าจอหลักเท่านั้นที่พาไปหน้าแอปทันที ในเบราว์เซอร์ต้องอยู่หน้านี้ก่อน ไม่งั้นกดเพิ่มไอคอนไม่ทัน
-  if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-    location.replace(document.getElementById('open').href);
+  // ปกติเข้าหน้า PIN ทันที ลิงก์ ?install มีไว้ให้อยู่หน้านี้นานพอจะกดเพิ่มไอคอน
+  // ล้างพารามิเตอร์ออกจาก URL ไม่งั้นไอคอนที่เพิ่มจะจำ ?install และค้างที่หน้านี้
+  if (new URLSearchParams(location.search).has('install')) {
+    document.getElementById('install').hidden = false;
+    history.replaceState(null, '', location.pathname);
+  } else {
+    location.replace('https://script.google.com/macros/s/AKfycbzuHKR-oSCWQGtn4-OaBgcEpDUdqiKsDTgOrPJYsGS54mOCpaIhblcaj0h1WjP-wj8Q/exec');
   }
 </script>
 </body>
