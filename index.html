@@ -23,11 +23,16 @@
 <script>
   // ปกติเข้าหน้า PIN ทันที ลิงก์ ?install มีไว้ให้อยู่หน้านี้นานพอจะกดเพิ่มไอคอน
   // ล้างพารามิเตอร์ออกจาก URL ไม่งั้นไอคอนที่เพิ่มจะจำ ?install และค้างที่หน้านี้
-  if (new URLSearchParams(location.search).has('install')) {
+  const openApp = () => location.replace('https://script.google.com/macros/s/AKfycbzuHKR-oSCWQGtn4-OaBgcEpDUdqiKsDTgOrPJYsGS54mOCpaIhblcaj0h1WjP-wj8Q/exec');
+  const standalone = matchMedia('(display-mode: standalone)');
+  if (new URLSearchParams(location.search).has('install') && !standalone.matches && !navigator.standalone) {
     document.getElementById('install').hidden = false;
     history.replaceState(null, '', location.pathname);
+    // Chrome ย้ายหน้านี้ไปหน้าต่างแอปตอนติดตั้งโดยไม่โหลดใหม่ จึงต้องพาเข้าระบบเอง
+    window.addEventListener('appinstalled', openApp);
+    standalone.addEventListener('change', e => { if (e.matches) openApp(); });
   } else {
-    location.replace('https://script.google.com/macros/s/AKfycbzuHKR-oSCWQGtn4-OaBgcEpDUdqiKsDTgOrPJYsGS54mOCpaIhblcaj0h1WjP-wj8Q/exec');
+    openApp();
   }
 </script>
 </body>
